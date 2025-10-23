@@ -1,0 +1,6 @@
+# spec/spec_helper.rb
+
+require 'minitest/autorun'
+require 'minitest/spec'
+
+require_relative '../lib/duration'
