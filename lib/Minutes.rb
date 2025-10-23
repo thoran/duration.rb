@@ -1,3 +1,9 @@
+# Minutes.rb
+# Minutes
+
+# 20130714
+# 0.0.0
+
 class Minutes
 
   def initialize(n = nil)

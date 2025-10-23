@@ -1,3 +1,9 @@
+# Days.rb
+# Days
+
+# 20130714
+# 0.0.0
+
 class Days
 
   def initialize(n = nil)
