@@ -34,6 +34,26 @@ class Seconds
   def to_weeks
     Weeks.new(@n.to_f/7/24/60/60)
   end
+
+  def to_minutes_and_seconds
+    numeric_result = self.to_i.divmod(60)
+    [Minutes.new(numeric_result.first), Seconds.new(numeric_result.last)]
+  end
+
+  def to_hours_and_minutes
+    numeric_result = self.to_i.divmod(60)
+    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  end
+
+  def to_days_and_hours
+    numeric_result = self.to_i.divmod(60)
+    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  end
+
+  def to_weeks_and_days
+    numeric_result = self.to_i.divmod(60)
+    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  end
 end
 
 class Minutes
@@ -63,6 +83,25 @@ class Minutes
 
   def to_weeks
     Weeks.new(@n.to_f/7/24/60)
+  end
+
+  def to_minutes_and_seconds
+    [self, Seconds.new(0)]
+  end
+
+  def to_hours_and_minutes
+    numeric_result = self.to_i.divmod(60)
+    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  end
+
+  def to_days_and_hours
+    numeric_result = self.to_i.divmod(60)
+    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  end
+
+  def to_weeks_and_days
+    numeric_result = self.to_i.divmod(60)
+    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
   end
 end
 
@@ -94,6 +133,24 @@ class Hours
   def to_weeks
     Weeks.new(@n.to_f/7/24)
   end
+
+  def to_minutes_and_seconds
+    [Minutes.new(to_minutes.to_i), Seconds.new(0)]
+  end
+
+  def to_hours_and_minutes
+    [self, Minutes.new(0)]
+  end
+
+  def to_days_and_hours
+    numeric_result = self.to_i.divmod(24)
+    [Days.new(numeric_result.first), Hours.new(numeric_result.last)]
+  end
+
+  def to_weeks_and_days
+    numeric_result = to_days.to_i.divmod(7)
+    [Weeks.new(numeric_result.first), Days.new(numeric_result.last)]
+  end
 end
 
 class Days
@@ -124,6 +181,23 @@ class Days
   def to_weeks
     Weeks.new(@n.to_f/7)
   end
+
+  def to_minutes_and_seconds
+    [Minutes.new(to_minutes.to_i), Seconds.new(0)]
+  end
+
+  def to_hours_and_minutes
+    [Hours.new(to_hours.to_i), Minutes.new(0)]
+  end
+
+  def to_days_and_hours
+    [self, Hours.new(0)]
+  end
+
+  def to_weeks_and_days
+    numeric_result = self.to_i.divmod(7)
+    [Weeks.new(numeric_result.first), Days.new(numeric_result.last)]
+  end
 end
 
 class Weeks
@@ -153,6 +227,25 @@ class Weeks
 
   def to_weeks
     self
+  end
+
+  def to_minutes_and_seconds
+    numeric_result = to_minutes.to_i.divmod(60)
+    [Minutes.new(numeric_result.first), Seconds.new(numeric_result.last)]
+  end
+
+  def to_hours_and_minutes
+    numeric_result = to_hours.to_i.divmod(60)
+    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  end
+
+  def to_days_and_hours
+    numeric_result = to_days.to_i.divmod(24)
+    [Days.new(numeric_result.first), Hours.new(numeric_result.last)]
+  end
+
+  def to_weeks_and_days
+    [self, Days.new(0)]
   end
 end
 
@@ -238,6 +331,20 @@ def main
   p 1.day.to_weeks
 
   p 1.day.to_weeks
+
+  p 61.seconds.to_minutes_and_seconds
+
+  p 61.minutes.to_minutes_and_seconds
+  p 61.minutes.to_hours_and_minutes
+
+  p 25.hours.to_hours_and_minutes
+  p 25.hours.to_days_and_hours
+  p 1000.hours.to_weeks_and_days
+
+  p 8.days.to_minutes_and_seconds
+  p 8.days.to_hours_and_minutes
+  p 8.days.to_days_and_hours
+  p 8.days.to_weeks_and_days
 end
 
 main
