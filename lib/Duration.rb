@@ -4,6 +4,10 @@ class Object
   def period_classes
     [Seconds, Minutes, Hours, Days, Weeks]
   end
+
+  def is_one_of?(*klasses)
+    klasses.flatten.include?(self)
+  end
 end
 
 class Seconds
@@ -50,9 +54,20 @@ class Seconds
     [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
   end
 
-  def to_weeks_and_days
-    numeric_result = self.to_i.divmod(60)
-    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  def +(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Seconds.new(@n + arg.to_seconds.to_i)
+    else
+      Seconds.new(@n + arg)
+    end
+  end
+
+  def -(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Seconds.new(@n - arg.to_seconds.to_i)
+    else
+      Seconds.new(@n - arg)
+    end
   end
 end
 
@@ -99,9 +114,20 @@ class Minutes
     [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
   end
 
-  def to_weeks_and_days
-    numeric_result = self.to_i.divmod(60)
-    [Hours.new(numeric_result.first), Minutes.new(numeric_result.last)]
+  def +(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Minutes.new(@n + arg.to_minutes.to_i)
+    else
+      Minutes.new(@n + arg)
+    end
+  end
+
+  def -(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Minutes.new(@n - arg.to_minutes.to_i)
+    else
+      Minutes.new(@n - arg)
+    end
   end
 end
 
@@ -151,6 +177,22 @@ class Hours
     numeric_result = to_days.to_i.divmod(7)
     [Weeks.new(numeric_result.first), Days.new(numeric_result.last)]
   end
+
+  def +(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Hours.new(@n + arg.to_hours.to_i)
+    else
+      Hours.new(@n + arg)
+    end
+  end
+
+  def -(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Hours.new(@n - arg.to_hours.to_i)
+    else
+      Hours.new(@n - arg)
+    end
+  end
 end
 
 class Days
@@ -197,6 +239,22 @@ class Days
   def to_weeks_and_days
     numeric_result = self.to_i.divmod(7)
     [Weeks.new(numeric_result.first), Days.new(numeric_result.last)]
+  end
+
+  def +(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Days.new(@n + arg.to_days.to_i)
+    else
+      Days.new(@n + arg)
+    end
+  end
+
+  def -(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Days.new(@n - arg.to_days.to_i)
+    else
+      Days.new(@n - arg)
+    end
   end
 end
 
@@ -247,6 +305,22 @@ class Weeks
   def to_weeks_and_days
     [self, Days.new(0)]
   end
+
+  def +(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Weeks.new(@n + arg.to_weeks.to_i)
+    else
+      Weeks.new(@n + arg)
+    end
+  end
+
+  def -(arg)
+    if arg.class.is_one_of?(*period_classes)
+      Weeks.new(@n - arg.to_weeks.to_i)
+    else
+      Weeks.new(@n - arg)
+    end
+  end
 end
 
 class Numeric
@@ -281,22 +355,32 @@ def main
   p 2.seconds
   p 2.seconds.to_i
   p 61.seconds
+  p 2.seconds + 2.seconds
+  p 2.seconds - 1.second
 
   p 1.minute
   p 2.minutes
   p 2.minutes.to_i
+  p 2.minutes + 2.minutes
+  p 2.minutes - 1.minute
 
   p 1.hour
   p 2.hours
   p 2.hours.to_i
+  p 2.minutes + 2.minutes
+  p 2.minutes - 1.minute
 
   p 1.day
   p 2.days
   p 2.days.to_i
+  p 2.days + 2.days
+  p 2.days - 1.day
 
   p 1.week
   p 2.weeks
   p 2.weeks.to_i
+  p 2.weeks + 2.weeks
+  p 2.weeks - 1.week
 
   p 1.minute.to_seconds
 
@@ -331,6 +415,22 @@ def main
   p 1.day.to_weeks
 
   p 1.day.to_weeks
+
+  p 2.hours - 3599.seconds
+  p 2.hours - 3600.seconds
+  p 2.hours - 59.minutes
+  p 2.hours - 60.seconds
+  p 2.hours - 1.hour
+  p 2.days - 24.hours
+  p 2.days - 1.hour
+  p 2.days - 3600.seconds
+  p 2.days - 23.hours
+  p 2.days - 24.hours
+  p 2.weeks - 1.hour
+  p 2.weeks - 1.day
+  p 2.weeks - 6.days
+  p 2.weeks - 7.days
+  p 2.weeks - 1.week
 
   p 61.seconds.to_minutes_and_seconds
 
