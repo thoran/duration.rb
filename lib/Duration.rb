@@ -2,7 +2,7 @@
 # duration
 
 # 20251022
-# 0.3.0
+# 0.3.1
 
 require_relative 'Duration/Milliseconds'
 require_relative 'Duration/Seconds'

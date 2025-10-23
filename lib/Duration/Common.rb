@@ -2,7 +2,7 @@
 # Duration::Common
 
 # 20251021
-# 0.3.0
+# 0.3.1
 
 module Duration
   module Common
