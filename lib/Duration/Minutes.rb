@@ -1,9 +1,6 @@
 # Duration/Minutes.rb
 # Duration::Minutes
 
-# 20251021
-# 0.3.1
-
 require_relative './Common'
 require_relative './Seconds'
 require_relative './Hours'

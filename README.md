@@ -34,10 +34,27 @@ $ gem install duration.rb
 
 ### Conversions
 ```ruby
+# Convert to integers
+1.second.to_i    # => 1
+30.minutes.to_i  # => 30
+2.hours.to_i     # => 2
+7.days.to_i      # => 7
+
+# Convert to floats
+1.second.to_f    # => 1.0
+30.minutes.to_f  # => 30.0
+2.hours.to_f     # => 2.0
+7.days.to_f      # => 7.0
+
 # Convert between units
-90.minutes.to_hours        # => 1.5
-1.5.hours.to_minutes       # => 90
-1.day.to_seconds           # => 86400
+90.minutes.to_hours             # => <Hours: 1.5>
+1.5.hours.to_minutes            # => <Minutes: 90>
+1.day.to_seconds                # => <Seconds: 86400>
+
+# Chain conversions
+90.minutes.to_hours.to_f        # => 1.5
+1.5.hours.to_minutes.to_i       # => 90
+1.day.to_seconds.to_i           # => 86400
 ```
 
 ## Contributing

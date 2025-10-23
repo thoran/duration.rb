@@ -1,8 +1,5 @@
-# duration.rb
-# duration
-
-# 20251022
-# 0.3.1
+# Duration.rb
+# Duration
 
 require_relative 'Duration/Milliseconds'
 require_relative 'Duration/Seconds'

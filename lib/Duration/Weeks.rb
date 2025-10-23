@@ -1,9 +1,6 @@
 # Duration/Weeks.rb
 # Duration::Weeks
 
-# 20251021
-# 0.3.1
-
 require_relative './Common'
 require_relative './Days'
 require_relative './Months'

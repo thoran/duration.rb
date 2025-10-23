@@ -1,9 +1,6 @@
 # Duration/Numeric.rb
 # Duration::Numeric
 
-# 20251021
-# 0.3.1
-
 module Duration
   module Numeric
     def milliseconds
