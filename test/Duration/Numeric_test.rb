@@ -1,6 +1,6 @@
-# spec/duration/numeric_spec.rb
+# test/duration/numeric_test.rb
 
-require_relative '../spec_helper'
+require_relative '../test_helper'
 
 describe Duration::Numeric do
   describe "millisecond extensions" do

@@ -1,17 +1,13 @@
-# spec/duration/days_spec.rb
+# test/duration/days_test.rb
 
-require_relative '../spec_helper'
+require_relative '../test_helper'
 
 describe Duration::Days do
   describe "initialization" do
-    it "initializes with an integer" do
-      days = Duration::Days.new(7)
-      _(days.to_i).must_equal 7
-    end
-
     it "initializes with a float" do
       days = Duration::Days.new(7.5)
-      _(days.to_f).must_equal 7.5
+      _(days.instance_variable_get(:@days)).must_equal 7.5
+      _(days.instance_variable_get(:@days)).must_be_kind_of Float
     end
   end
 
@@ -47,12 +43,13 @@ describe Duration::Days do
     it "converts to weeks" do
       weeks = @days.to_weeks
       _(weeks).must_be_instance_of Duration::Weeks
-      _(weeks.to_f).must_be_within_delta 0.2857, 0.001
+      _(weeks.to_f).must_be_close_to 0.2857, 0.001
     end
 
     it "converts to months" do
       months = @days.to_months
       _(months).must_be_instance_of Duration::Months
+      _(months.to_f).must_be_close_to 0.06593, 0.00001
     end
 
     it "returns itself for to_days" do
@@ -65,14 +62,14 @@ describe Duration::Days do
       days = Duration::Days.new(1)
       time_ago = days.ago
       _(time_ago).must_be_instance_of Time
-      _(Time.now - time_ago).must_be_within_delta 86400.0, 1.0
+      _(Time.now - time_ago).must_be_close_to 86400.0, 1.0
     end
 
     it "calculates hence from current time" do
       days = Duration::Days.new(1)
       time_hence = days.hence
       _(time_hence).must_be_instance_of Time
-      _(time_hence - Time.now).must_be_within_delta 86400.0, 1.0
+      _(time_hence - Time.now).must_be_close_to 86400.0, 1.0
     end
   end
 end

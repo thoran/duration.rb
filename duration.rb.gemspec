@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name = 'duration.rb'
 
   spec.version = Duration::VERSION
-  spec.date = '2025-10-23'
+  spec.date = '2025-10-25'
 
   spec.summary = "Objects for handling durations of time."
   spec.description = "Objects for handling durations of time."

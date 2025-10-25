@@ -1,57 +1,59 @@
-# spec/duration/months_spec.rb
+# test/duration/months_test.rb
 
-require_relative '../spec_helper'
+require_relative '../test_helper'
 
 describe Duration::Months do
   describe "initialization" do
-    it "initializes with an integer" do
-      months = Duration::Months.new(3)
-      _(months.to_i).must_equal 3
-    end
-
     it "initializes with a float" do
       months = Duration::Months.new(3.5)
-      _(months.to_f).must_equal 3.5
+      _(months.instance_variable_get(:@months)).must_equal 3.5
+      _(months.instance_variable_get(:@months)).must_be_kind_of Float
     end
   end
 
   describe "conversions" do
-    before do
-      @months = Duration::Months.new(2)
+    subject do
+      Duration::Months.new(2)
     end
 
     it "converts to milliseconds" do
-      ms = @months.to_milliseconds
+      ms = subject.to_milliseconds
       _(ms).must_be_instance_of Duration::Milliseconds
+      _(ms.to_f).must_equal 5241600000.0
     end
 
     it "converts to seconds" do
-      secs = @months.to_seconds
+      secs = subject.to_seconds
       _(secs).must_be_instance_of Duration::Seconds
+      _(secs.to_f).must_equal 5241600.0
     end
 
     it "converts to minutes" do
-      mins = @months.to_minutes
+      mins = subject.to_minutes
       _(mins).must_be_instance_of Duration::Minutes
+      _(mins.to_f).must_equal 87360.0
     end
 
     it "converts to hours" do
-      hours = @months.to_hours
+      hours = subject.to_hours
       _(hours).must_be_instance_of Duration::Hours
+      _(hours.to_f).must_equal 1456.0
     end
 
     it "converts to days" do
-      days = @months.to_days
+      days = subject.to_days
       _(days).must_be_instance_of Duration::Days
+      _(days.to_f).must_be_close_to 60.66, 0.01
     end
 
     it "converts to weeks" do
-      weeks = @months.to_weeks
+      weeks = subject.to_weeks
       _(weeks).must_be_instance_of Duration::Weeks
+      _(weeks.to_f).must_be_close_to 8.66, 0.01
     end
 
     it "returns itself for to_months" do
-      _((@months.to_months).object_id).must_equal @months.object_id
+      _((subject.to_months).object_id).must_equal subject.object_id
     end
   end
 

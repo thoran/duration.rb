@@ -1,4 +1,4 @@
-# spec/spec_helper.rb
+# test/test_helper.rb
 
 require 'minitest/autorun'
 require 'minitest/spec'

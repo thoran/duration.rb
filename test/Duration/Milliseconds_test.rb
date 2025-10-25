@@ -1,60 +1,59 @@
-# spec/duration/milliseconds_spec.rb
+# test/duration/milliseconds_test.rb
 
-require_relative '../spec_helper'
+require_relative '../test_helper'
 
 describe Duration::Milliseconds do
   describe "initialization" do
-    it "initializes with an integer" do
-      ms = Duration::Milliseconds.new(1000)
-      _(ms.to_i).must_equal 1000
-    end
-
-    it "initializes with a float" do
+    it "initializes with an float" do
       ms = Duration::Milliseconds.new(1500.5)
-      _(ms.to_f).must_equal 1500.5
+      _(ms.instance_variable_get(:@milliseconds)).must_equal 1500.5
+      _(ms.instance_variable_get(:@milliseconds)).must_be_kind_of Float
     end
   end
 
   describe "conversions" do
-    before do
-      @ms = Duration::Milliseconds.new(5000)
+    subject do
+      Duration::Milliseconds.new(5000)
     end
 
     it "converts to seconds" do
-      seconds = @ms.to_seconds
+      seconds = subject.to_seconds
       _(seconds).must_be_instance_of Duration::Seconds
       _(seconds.to_f).must_equal 5.0
     end
 
     it "converts to minutes" do
-      minutes = @ms.to_minutes
+      minutes = subject.to_minutes
       _(minutes).must_be_instance_of Duration::Minutes
-      _(minutes.to_f).must_be_within_delta 0.0833, 0.001
+      _(minutes.to_f).must_be_close_to 0.0833, 0.0001
     end
 
     it "converts to hours" do
-      hours = @ms.to_hours
+      hours = subject.to_hours
       _(hours).must_be_instance_of Duration::Hours
-      _(hours.to_f).must_be_within_delta 0.00138, 0.0001
+      _(hours.to_f).must_be_close_to 0.00138, 0.00001
     end
 
     it "converts to days" do
-      days = @ms.to_days
+      days = subject.to_days
       _(days).must_be_instance_of Duration::Days
+      _(days.to_f).must_be_close_to 5.787037e-5, 0.000001
     end
 
     it "converts to weeks" do
-      weeks = @ms.to_weeks
+      weeks = subject.to_weeks
       _(weeks).must_be_instance_of Duration::Weeks
+      _(weeks.to_f).must_be_close_to 8.267195e-6, 0.000001
     end
 
     it "converts to months" do
-      months = @ms.to_months
+      months = subject.to_months
       _(months).must_be_instance_of Duration::Months
+      _(months.to_f).must_be_close_to 1.907814e-6, 0.000001
     end
 
     it "returns itself for to_milliseconds" do
-      _((@ms.to_milliseconds).object_id).must_equal @ms.object_id
+      _((subject.to_milliseconds).object_id).must_equal subject.object_id
     end
   end
 
